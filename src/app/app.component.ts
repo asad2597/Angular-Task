@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Carousel,Collapse, Dropdown, initTE,Tab } from 'tw-elements';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NG_Task';
+
+  ngOnInit() {
+    initTE({ Collapse, Carousel, Dropdown, Tab });
+  }
 }

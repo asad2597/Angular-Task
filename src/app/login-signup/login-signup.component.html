@@ -1,0 +1,130 @@
+<!-- <-- ************************ -->
+<div
+  (click)="model.closeModel()"
+  class="flex top-0 lef-0 absolute z-10 items-center justify-center w-full h-screen bg-dark2/75"
+>
+  <div class="flex flex-col rounded w-45 pb-4 bg-white" click-stop-propagation>
+    <div
+      class="flex flex-row items-center justify-between text-xl text-dark2 px-4 py-2"
+    >
+      <h1 *ngIf="model.getLogin()" class="pt-2 font-medium">Login</h1>
+      <h1 *ngIf="model.getSignUp()"class="pt-2 font-medium">SignUp</h1>
+      <div
+        class="flex items-center justify-center w-6 h-6 rounded-full text-dark2 hover:text-white hover:bg-dark2"
+      >
+        <button class="text-2xl" (click)="model.closeModel()">&times;</button>
+      </div>
+    </div>
+    <hr class="w-full border border-dark2/30" />
+    <!-- <--Login Tab -->
+    <div *ngIf="model.getLogin(); else signUp">
+      <div class="flex flex-col w-72 pt-6 pb-4 items-center justify-center">
+        <div class="relative flex flex-col mb-6">
+          <input
+            type="email"
+            class="h-8 w-64 p-2 border border-dark2/50 outline-none rounded focus:border-2 focus:border-blue2"
+          />
+          <label
+            class="absolute text-dark2/75 top-1 left-2 bg-white px-1 transition duration-200"
+            for="email"
+            >Email</label
+          >
+        </div>
+        <div class="relative box-border flex flex-col mb-4">
+          <input
+            type="password"
+            class="h-8 w-64 p-2 border border-dark2/50 outline-none rounded focus:border-2 focus:border-blue2"
+          />
+          <label
+            class="absolute top-1 text-dark2/75 left-2 bg-white px-1 transition duration-200"
+            for="password"
+            >Password</label
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Signup Tab   -->
+    <ng-template #signUp>
+      <div class="flex flex-col w-72 pt-6 pb-4 items-center justify-center">
+        
+        <!--UserName input-->
+        <div class="relative flex flex-col mb-6">
+          <input
+            type="text"
+            class="h-8 w-64 p-2 border border-dark2/50 outline-none rounded focus:border-2 focus:border-blue2"
+          />
+          <label
+            class="absolute text-dark2/75 top-1 left-2 bg-white px-1 transition duration-200"
+            for="email"
+            >User Name</label
+          >
+        </div>
+
+        <!--Email input -->
+        <div class="relative box-border flex flex-col mb-4">
+          <input
+            type="email"
+            class="h-8 w-64 p-2 border border-dark2/50 outline-none rounded focus:border-2 focus:border-blue2"
+          />
+          <label
+            class="absolute top-1 text-dark2/75 left-2 bg-white px-1 transition duration-200"
+            for="password"
+            >Email</label
+          >
+        </div>
+
+        <!--Password input -->
+        <div class="relative box-border flex flex-col mb-4">
+          <input
+            type="password"
+            class="h-8 w-64 p-2 border border-dark2/50 outline-none rounded focus:border-2 focus:border-blue2"
+          />
+          <label
+            class="absolute top-1 text-dark2/75 left-2 bg-white px-1 transition duration-200"
+            for="password"
+            >Password</label
+          >
+        </div>
+
+        <!--Confirm Password input -->
+        <div class="relative box-border flex flex-col mb-4">
+          <input
+            type="password"
+            class="h-8 w-64 p-2 border border-dark2/50 outline-none rounded focus:border-2 focus:border-blue2"
+          />
+          <label
+            class="absolute top-1 text-dark2/75 left-2 bg-white px-1 transition duration-200"
+            for="password"
+            >Confirm Password</label
+          >
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="flex flex-col items-center login/signup" *ngIf="model.getLogin()">
+      <button class="bg-blue1 px-6 py-1 rounded text-white hover:bg-blue2"
+      >
+        Login
+      </button>
+      <button
+        class="no no-underline text-blue1 hover:text-blue2 text-sm mt-2 uppercase"
+        (click)="model.onSignUp()"
+      >
+        create accout
+      </button>
+    </div>
+    <div class="flex flex-col items-center login/signup" *ngIf="model.getSignUp()">
+      <button class="bg-blue1 px-6 py-1 rounded text-white hover:bg-blue2"
+      >
+        Register
+      </button>
+      <button
+        class="no no-underline text-blue1 hover:text-blue2 text-sm mt-2 uppercase"
+        (click)="model.onLogin()"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>

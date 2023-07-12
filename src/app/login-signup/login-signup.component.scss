@@ -1,0 +1,4 @@
+
+input:focus + label{
+    @apply text-blue2 transform -translate-y-5;
+}
