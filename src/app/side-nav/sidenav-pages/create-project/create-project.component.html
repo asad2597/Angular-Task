@@ -1,0 +1,188 @@
+<div class="flex flex-col items-center justify-center px-24 pt-16 bg-light2">
+  <app-alert2 class="mt-4 transition-all" *ngIf="showAlert" [color]="alertColor">{{alertMsg}}</app-alert2>
+  <div class="w-full mt-8">
+    <!-- toggle button -->
+    <h2 class="mb-0" id="headingOne5">
+      <button
+        class="group relative flex w-full items-center rounded-t-[15px] border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+        type="button"
+        data-te-collapse-init
+        data-te-target="#collapseOne5"
+        aria-expanded="true"
+        aria-controls="collapseOne5"
+      >
+        <i class="fa-solid fa-plus mr-2"></i>
+        Add New Project
+        <span
+          class="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </span>
+      </button>
+    </h2>
+    <!-- toggeled form area -->
+    <div
+      id="collapseOne5"
+      class="!visible bg-white"
+      data-te-collapse-item
+      data-te-collapse-show
+      aria-labelledby="headingOne5"
+    >
+      <div class="px-5 py-4">
+        <form #projectForm="ngForm" (ngSubmit)="addProject()" >
+          <div class="flex flex-row">
+            <div class="flex flex-col mr-6 gap-6">
+              <!-- input project title -->
+              <div class="relative box-border flex flex-col mb-4">
+                <input
+                type="text"
+                [(ngModel)]="project.title"
+                name="title"
+                placeholder="Title"
+                #title="ngModel"
+                required
+                class="peer placeholder-transparent h-8 w-64 p-2 text-sm border border-dark2/50 outline-none rounded focus:border focus:border-blue2"
+              />
+              <label
+                class="absolute pointer-events-none text-sm bg-white px-1 -top-3.5 left-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-dark2/75 peer-placeholder-shown:top-1 peer-focus:text-blue1 peer-focus:-top-3.5 peer-focus:text-sm transition-all duration-200"
+              >
+                Title
+              </label>
+              <p
+              *ngIf="title.errors && title.touched && title.dirty"
+                class="text-sm text-red-500"
+              >
+                Field is required!
+              </p>
+              </div>
+
+              <!-- input project framework -->
+
+              <div class="relative box-border flex flex-col mb-4">
+                <input
+                type="text"
+                [(ngModel)]="project.framework"
+                name="framework"
+                placeholder="Framework"
+                #framework="ngModel"
+                required
+                class="peer placeholder-transparent h-8 w-64 p-2 text-sm border border-dark2/50 outline-none rounded focus:border focus:border-blue2"
+              />
+              <label
+                class="absolute pointer-events-none text-sm bg-white px-1 -top-3.5 left-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-dark2/75 peer-placeholder-shown:top-1 peer-focus:text-blue1 peer-focus:-top-3.5 peer-focus:text-sm transition-all duration-200"
+              >
+                Framework
+              </label>
+              <p
+              *ngIf="framework.errors && framework.touched && framework.dirty"
+                class="text-sm text-red-500"
+              >
+                Field is required!
+              </p>
+              </div>
+            </div>
+            <div class="flex flex-col mr-6 gap-6">
+
+              <!-- input project budget -->
+
+              <div class="relative box-border flex flex-col mb-4">
+                <input
+                type="number"
+                [(ngModel)]="project.budget"
+                name="budget"
+                placeholder="Budget"
+                #budget="ngModel"
+                required
+                class="peer  h-8 w-64 p-2 text-sm border border-dark2/50 outline-none rounded focus:border focus:border-blue2"
+              />
+              <label
+                class="absolute pointer-events-none text-sm bg-white px-1 -top-3.5 left-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-dark2/75 peer-placeholder-shown:top-1 peer-focus:text-blue1 peer-focus:-top-3.5 peer-focus:text-sm transition-all duration-200"
+              >
+                Budget
+              </label>
+              <p
+              *ngIf="budget.errors && budget.touched && budget.dirty"
+                class="text-sm text-red-500"
+              >
+                Field is required!
+              </p>
+              </div>
+
+              <!-- input project duration -->
+
+              <div class="relative box-border flex flex-col mb-4">
+                <input
+                type="number"
+                [(ngModel)]="project.duration"
+                name="duration"
+                placeholder="Duration in days"
+                #duration="ngModel"
+                required
+                class="peer placeholder-transparent h-8 w-64 p-2 text-sm border border-dark2/50 outline-none rounded focus:border focus:border-blue2"
+              />
+              <label
+                class="absolute pointer-events-none text-sm bg-white px-1 -top-3.5 left-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-dark2/75 peer-placeholder-shown:top-1 peer-focus:text-blue1 peer-focus:-top-3.5 peer-focus:text-sm transition-all duration-200"
+              >
+                Duration in days
+              </label>
+                <p
+                *ngIf="duration.errors && duration.touched && duration.dirty"
+                  class="text-sm text-red-500"
+                >
+                  Field is required!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- input project details -->
+
+          <div class="my-6">
+            <div class="relative mb-3">
+              <textarea
+                type="text"
+                name="details"
+                [(ngModel)]="project.details"
+                class="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] focus:border focus:border-blue2 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                placeholder="Project Details"
+              ></textarea>
+              <label
+                for="projectDetails"
+                class="absolute pointer-events-none text-sm bg-white px-1 -top-3.5 left-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-dark2/75 peer-placeholder-shown:top-1 peer-focus:text-blue1 peer-focus:-top-3.5 peer-focus:text-sm transition-all duration-200"
+                >Project Details</label
+              >
+            </div>
+          </div>
+          <!-- submit button -->
+
+          <div class="flex items-center justify-end">
+            <button
+              [disabled]="projectForm.invalid || insubmission"
+              class="mt-4 px-4 py-2 text-white tracking-wide rounded bg-blue1 hover:bg-blue2 
+              disabled:opacity-50 disabled:bg-blue1"
+            >
+              Add Project
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-display-projects class="bg-light2"></app-display-projects>

@@ -4,6 +4,14 @@ content: [
     "./src/**/*.{html,ts}",
     "./node_modules/tw-elements/dist/js/**/*.js"
 ],
+safelist: [
+    'bg-blue-300',
+    'text-blue-700',
+    'bg-green-300',
+    'text-green-700',
+    'bg-red-300',
+    'text-red-700'
+],
 theme: {
     extend: {
         colors: {

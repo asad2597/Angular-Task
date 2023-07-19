@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Carousel,Collapse, Dropdown, initTE,Tab } from 'tw-elements';
+import { Carousel,Collapse, Dropdown, initTE,Tab, Sidenav,Input } from 'tw-elements';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ import { Carousel,Collapse, Dropdown, initTE,Tab } from 'tw-elements';
 export class AppComponent {
   title = 'NG_Task';
 
+  constructor(public auth: AuthService){
+
+  }
+
   ngOnInit() {
-    initTE({ Collapse, Carousel, Dropdown, Tab });
+    initTE({ Collapse, Carousel, Dropdown, Tab, Sidenav, Input });
   }
 }

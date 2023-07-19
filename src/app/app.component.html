@@ -1,1 +1,14 @@
-<app-body></app-body>
+<!-- top navigation -->
+<app-top-nav></app-top-nav>
+
+<!-- router link pages -->
+<router-outlet></router-outlet>
+
+<!-- sidenav -->
+<app-side-nav *ngIf="auth.isAuthenticated"></app-side-nav>
+
+<!-- footer -->
+<app-footer></app-footer>
+
+<!-- Login/signUp modal -->
+<app-auth-modal *ngIf="!auth.isAuthenticated"></app-auth-modal>
