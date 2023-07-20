@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import Project from 'src/app/Models/project.model';
+import IProject from 'src/app/Models/project.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
-//import { AngularFirestoreCollection } from ''
 
 @Component({
   selector: 'app-create-project',
@@ -10,16 +9,17 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./create-project.component.scss']
 })
 export class CreateProjectComponent {
-  project: Project = { title: '', framework: '', budget: 0, duration:0, 
+  project: IProject = { title: '', framework: '', budget: 0, duration:0, 
                       details:'', status: false, uid: ''
                     }
+
   insubmission = false;
   showAlert = false;
   alertMsg = 'Please wait project is being added!';
   alertColor = 'blue';
 
   constructor(
-    public auth: AuthService,
+    public auth: AuthService, 
     public projectService: ProjectService
     ){
     }
