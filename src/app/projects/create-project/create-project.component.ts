@@ -25,7 +25,7 @@ export class CreateProjectComponent {
     }
 
   async addProject(){
-    this.insubmission = false;
+    this.insubmission = true;
     this.project.uid = this.auth.getUid();
     this.project.status = true;
     try{
@@ -33,8 +33,6 @@ export class CreateProjectComponent {
       setTimeout(() => {
         this.showAlert = false;
       },10000);
-      
-      this.insubmission = false;
 
       await this.projectService.addProject(this.project)
       console.log("Project added successfully");
@@ -48,7 +46,7 @@ export class CreateProjectComponent {
     }
     this.alertMsg = "New project has been added successfuly!";
     this.alertColor = 'green';
-    this.insubmission = true;
+    this.insubmission = false;
   }
 
 }

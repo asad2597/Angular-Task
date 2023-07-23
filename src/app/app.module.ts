@@ -3,7 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { UserModule } from './user/user.module';
-import { SidenavModule } from './side-nav/sidenav-modules/sidenav.module';
+import { SidenavModule } from './side-nav/sidenav.module';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { ProjectsModule } from './projects/projects.module';
+//import { AngularFireModule } from '@angular/fire/compat';
+
 //environment import.....
 import { environment } from 'src/environments/environment';
 //firebase imports....
@@ -19,6 +23,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { FooterComponent } from './footer/footer.component';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,20 +35,23 @@ import { FooterComponent } from './footer/footer.component';
     ProjectsComponent,
     FooterComponent,
     
+    
   
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
     //AngularFireModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(()=>getFirestore()),
     provideAuth(() => getAuth()),
+    BrowserModule,
+    AppRoutingModule,
     UserModule,
-    SidenavModule
+    SidenavModule,
+    SharedModule,
+    ProjectsModule
   
   ],
-  providers: [],
+  providers: [ { provide: FIREBASE_OPTIONS, useValue: environment.firebase}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

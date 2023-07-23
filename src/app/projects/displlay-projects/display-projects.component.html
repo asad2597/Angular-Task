@@ -1,0 +1,70 @@
+<!-- component -->
+
+<div class="bg-light2 min-h-screen py-12">
+  <div class="flex flex-col px-24 relative" *ngIf="projects.length > 0">
+    <!-- search box -->
+    <div class="absolute flex items-center right-24 top-0 mt-0 md:mt-0">
+      <form #searchForm="ngForm">
+        <span class="absolute top-2 right-0">
+          <i class="fa-solid fa-magnifying-glass w-5 h-5 mx-3 text-gray-400"></i>
+        </span>
+
+        <input
+          type="text"
+          name="searchedTitle"
+          [(ngModel)]="searchedTitle"
+          placeholder="Search"
+          class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-2 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+        />
+      </form>
+      
+      
+    </div>
+
+    <!-- section title and available projects quantity -->
+
+    
+
+    <!-- Searched Projects -->
+
+    <div *ngIf="searchedTitle!==''" class="py-4">
+      <div *ngIf="searchedProjects.length>0; else notFound">
+        
+        <h1 class="py-4">Total {{searchedProjects.length}} 
+          prject<span *ngIf="searchedProjects.length>1">s</span> 
+          as "{{searchedTitle}}" found!</h1>
+        
+          <app-projects-table [projects]="searchedProjects" tableID="searched"></app-projects-table>
+      </div>
+      
+      <ng-template #notFound>
+        <h1 class="">No prject "{{searchedTitle}}" found!</h1>
+      </ng-template>
+      
+    </div>
+    
+    
+    <!-- Projects tabs -->
+    <app-projecttabs-container [totalProjects]="projects.length">
+        <app-tab tabTitle="View all">
+            <app-projects-table  tableID="viewAll"></app-projects-table>
+        </app-tab>
+        <app-tab tabTitle="Completed">
+            <app-projects-table  tableID="completed"></app-projects-table>
+        </app-tab>
+        <app-tab tabTitle="In Progress">
+            <app-projects-table  tableID="inProgress"></app-projects-table>
+        </app-tab>
+    </app-projecttabs-container>
+    
+  </div>
+  <!-- shows message if project list is empty -->
+  <ng-template #noProjects>
+        <h1 class=" text-center text-dark1/30 text-2xl font-extrabold py-24">
+            No project found
+        </h1>
+    </ng-template>
+</div>
+
+<!-- Edit Project Modal -->
+

@@ -1,0 +1,34 @@
+<section class="mt-12">
+  <!-- Section Title -->
+  <div class="flex flex-row py-2 items-center">
+    <h2 class="text-lg font-medium text-gray-800 dark:text-white">
+      Projects
+    </h2>
+
+    <span
+      class="px-3 py-1 ml-4 text-xs text-blue-600 bg-blue-100 rounded-full"
+      >{{totalProjects}}&nbsp;Projects</span
+    >
+  </div>
+  <!-- Tabs Buttons-->
+  <div class="py-2 md:flex md:items-center md:justify-between">
+    <ul
+      class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700"
+    >
+      <li *ngFor="let tab of tabs" [ngClass]="{'bg-gray-100': tab.active}"
+        
+        class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm"
+      >
+      <a class="cursor-pointer" (click)="selectTab(tab)">
+        {{tab.tabTitle}}
+      </a> 
+      </li>
+    </ul>
+  </div>
+
+  <!-- Content Table -->
+  <ng-content></ng-content>
+
+</section>
+
+  

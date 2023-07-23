@@ -13,5 +13,5 @@ export class HomeComponent {
     public modal: ModalService,
     public auth: AuthService
     ){}
-
+    
 }

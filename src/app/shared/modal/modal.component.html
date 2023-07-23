@@ -1,8 +1,8 @@
 <!-- <-- ************************ -->
-<div [ngClass]="{hidden: !modal.getVisible()}" (click)="modal.closeModal()"
-  class="flex top-0 lef-0 absolute z-[100] items-center justify-center w-full h-screen bg-dark2/75"
+<div [ngClass]="{hidden: !modal.isModalVisible(modalID)}" (click)="closeModal()"
+  class="flex fixed top-0 left-0 z-[100] items-center justify-center w-full h-screen bg-dark2/75"
 >
-  <div class="flex flex-col rounded w-45 pb-4 bg-white" stop-propagation>
+  <div class="flex absolute flex-col my-auto rounded w-45 pb-4 bg-white" stop-propagation>
     <!-- Title section -->
     <div
       class="flex flex-row items-center justify-between text-xl text-dark2 px-4 py-2"
@@ -13,7 +13,7 @@
       <div
         class="flex items-center justify-center w-6 h-6 rounded-full text-dark2 hover:text-white hover:bg-dark2"
       >
-        <button class="text-2xl" (click)="modal.closeModal()" >&times;</button>
+        <button class="text-2xl" (click)="closeModal()" >&times;</button>
       </div>
     </div>
     <hr class="w-full border border-dark2/30" />

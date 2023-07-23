@@ -1,0 +1,14 @@
+
+
+
+<ng-content [class.hidden]="tabs.tab.active"></ng-content>
+
+<!-- LogIn SignUp Tab Links -->
+ <ul class="flex justify-center items-center">
+    <li *ngFor="let tab of tabs" [class.hidden]="tab.active"
+     class="no-underline text-blue1 hover:text-blue2 text-sm uppercase">
+     <a class="cursor-pointer tracking-widest" (click)="selectTab(tab)">
+        {{tab.tabTitle}}
+    </a> 
+    </li>
+</ul>

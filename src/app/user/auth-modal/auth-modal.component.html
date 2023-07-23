@@ -1,34 +1,19 @@
-<app-modal>
+<app-modal modalID="auth">
   <!-- Tab heading -->
   <div heading>
-    <h1 *ngIf="modal.getLogin()" class="pt-2 font-medium">Login</h1>
-    <h1 *ngIf="modal.getSignUp()" class="pt-2 font-medium">SignUp</h1>
+    <h1  class="pt-2 font-medium" *ngIf="isLogin">Login</h1>
+    <h1  class="pt-2 font-medium" *ngIf="isSignUp">SignUp</h1>
   </div>
-  <!-- <--Login Tab -->
-  <app-login *ngIf="modal.getLogin()"></app-login>
-
-  <!-- Signup Tab   -->
-  <app-register *ngIf="modal.getSignUp()"></app-register>
-
-  <!-- Tab Section -->
-
-  <!-- Login Tab -->
-  <div class="flex justify-center items-center" *ngIf="modal.getLogin()">
-    <button (click)="modal.onSignUpClicked()"
-      class="no-underline text-blue1 hover:text-blue2 text-sm uppercase"
-    >
-      create accout
-    </button>
-  </div>
-
-  <!-- SignUp Tab -->
-  <div class="flex justify-center items-center" *ngIf="modal.getSignUp()"
-  >
-    <button
-      (click)="modal.onLoginClicked()"
-      class="no-underline text-blue1 hover:text-blue2 text-sm uppercase"
-    >
-      Login
-    </button>
-  </div>
+<!-- Tabs-Container -->
+  <app-tabscontainer>
+    <!-- Login Tab -->  
+    <app-tab tabTitle="Login">
+      <app-login ></app-login>
+    </app-tab>
+    <!-- Signup Tab -->  
+    <app-tab tabTitle="Register">
+      <app-register ></app-register>
+    </app-tab>
+  </app-tabscontainer>
+  
 </app-modal>

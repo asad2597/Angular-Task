@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Carousel,Collapse, Dropdown, initTE,Tab, Sidenav,Input } from 'tw-elements';
+import { Component, inject } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+import { Carousel,Collapse, Dropdown, initTE,Tab, Sidenav,Input,Ripple} from 'tw-elements';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,12 +10,12 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'NG_Task';
-
+  firestore: Firestore = inject(Firestore);
   constructor(public auth: AuthService){
 
   }
 
   ngOnInit() {
-    initTE({ Collapse, Carousel, Dropdown, Tab, Sidenav, Input });
+    initTE({ Collapse, Carousel, Dropdown, Tab, Sidenav, Input, Ripple });
   }
 }
