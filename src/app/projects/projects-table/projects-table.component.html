@@ -67,8 +67,8 @@
               ${{project.budget}}
             </td>
 
-            <td class="px-4 py-4 text-sm whitespace-nowrap">
-              <div class="relative">
+            <td class="px-4 py-4 text-sm whitespace-nowrap" clickOutside (clickOutside)="closeAction()">
+              <div class="relative" >
                   <button (click)="toggleAction(project)" 
                         class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -77,28 +77,32 @@
                     </button>
                     
                   <!-- Dropdown menu -->
-                  <div *ngIf="showAction && project===selectedProject" id="dropdown" class="absolute z-[99] right-8 top-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
-                      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-                        <li>
-                          <button (click)="openEditModal()"
+                  <div >
+                    <div *ngIf="showAction && project===selectedProject" id="dropdown" class="absolute z-[99] right-8 top-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-24 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                            <li>
+                            <button (click)="openEditModal()"
+                                    class="flex flex-row pl-4 items-center gap-2 hover:bg-gray-100 w-full">
+                                <i class="fa-regular fa-pen-to-square text-blue1"></i>
+                                <a class="py-2 ">
+                                    Edit
+                                </a>
+                            </button>
+                            
+                            </li>
+                            <li>
+                            <button (click)="openDeleteModal()" 
                                 class="flex flex-row pl-4 items-center gap-2 hover:bg-gray-100 w-full">
-                              <i class="fa-regular fa-pen-to-square text-blue1"></i>
-                              <a class="py-2 ">
-                                  Edit
-                              </a>
-                          </button>
-                          
-                        </li>
-                        <li>
-                          <button class="flex flex-row pl-4 items-center gap-2 hover:bg-gray-100 w-full">
-                              <i class="fa-regular fa-trash-can text-red-600"></i>
-                              <a class="py-2 ">
-                                  Delete
-                              </a>
-                          </button>
-                        </li>
-                      </ul>
-                  </div>
+                                <i class="fa-regular fa-trash-can text-red-600"></i>
+                                <a class="py-2 ">
+                                    Delete
+                                </a>
+                            </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
               </div>  
                 
             </td>
@@ -131,5 +135,3 @@
     </tbody>
 </table>
 
-<!-- Edit Project Modal -->
-<app-edit-project [project]="selectedProject"></app-edit-project>

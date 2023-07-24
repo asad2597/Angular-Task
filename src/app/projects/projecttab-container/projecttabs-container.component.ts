@@ -13,7 +13,7 @@ export class ProjecttabsContainerComponent {
   @ContentChildren(TabComponent) tabs?: QueryList<TabComponent>
 
   constructor(private projectService: ProjectService){}
-
+ 
   ngAfterContentInit(){
     const activeTabs = this.tabs?.filter(tab =>{
       tab.active
@@ -27,9 +27,9 @@ export class ProjecttabsContainerComponent {
   selectTab(tab: TabComponent){
     this.tabs?.forEach(tab=>{
      tab.active = false;
+     console.log(tab.tabTitle);
     })
 
     tab.active = true;
-    //this.totalProjects = this.projectService.getSelectedProjects();
   }
 }

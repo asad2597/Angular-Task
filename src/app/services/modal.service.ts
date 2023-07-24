@@ -27,10 +27,6 @@ export class ModalService {
       )
   }
 
-  closeModal(){
-    //this.visible = false;
-  }
-
   //return modal visible status....
   isModalVisible(id: string): boolean{
     return Boolean(this.modal.find(element => element.id === id)?.visible);
@@ -42,6 +38,7 @@ export class ModalService {
     
     if(modal){
       modal.visible = !modal.visible;
+      console.log("ToggleModal Called....");
     }
   }
 

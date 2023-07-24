@@ -9,9 +9,7 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./create-project.component.scss']
 })
 export class CreateProjectComponent {
-  project: IProject = { title: '', framework: '', budget: 0, duration:0, 
-                      details:'', status: false, uid: ''
-                    }
+  project = {} as IProject;
 
   insubmission = false;
   showAlert = false;
@@ -19,24 +17,21 @@ export class CreateProjectComponent {
   alertColor = 'blue';
 
   constructor(
-    public auth: AuthService, 
-    public projectService: ProjectService
+    public _auth: AuthService, 
+    public _projectService: ProjectService
     ){
     }
-
   async addProject(){
     this.insubmission = true;
-    this.project.uid = this.auth.getUid();
+    this.project.uid = this._auth.getUid();
     this.project.status = true;
     try{
       this.showAlert = true;
+
+      await this._projectService.addProject(this.project)
       setTimeout(() => {
         this.showAlert = false;
-      },10000);
-
-      await this.projectService.addProject(this.project)
-      console.log("Project added successfully");
-      
+      },5000);
       
     }catch(e){
       console.log("Error: " + e);

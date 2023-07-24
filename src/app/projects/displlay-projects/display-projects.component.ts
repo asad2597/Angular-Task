@@ -16,7 +16,7 @@ export class DisplayProjectsComponent {
 
   //custroctor.....
   constructor(
-      public projectService: ProjectService,
+      public _projectService: ProjectService,
       public auth: AuthService,
       public modal: ModalService
       ){}
@@ -24,8 +24,11 @@ export class DisplayProjectsComponent {
   //OnInIt....
   ngOnInit(){
     this.searchedProjects = [];
-    //storing projects in this.projects[]......
-    this.getProjects();
+
+    
+    this.getProjects(); //storing projects in this.projects[]......
+    
+    
   }
 
   //do check .......
@@ -39,7 +42,7 @@ export class DisplayProjectsComponent {
   //get project to get all projects of user....
   getProjects(){
     this.projects = [];
-    this.projects = this.projectService.getProjects()
+    this.projects = this._projectService.getProjects()
   }
 
   searchProject(title: string){

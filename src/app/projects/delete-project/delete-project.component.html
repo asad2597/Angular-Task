@@ -1,0 +1,26 @@
+<app-modal modalID="deleteProject">
+  <div class="flex flex-col gap-y-4 px-12 pt-6 pb-2">
+    <!-- Alert Box -->
+    <div class="flex mx-auto" *ngIf="showAlert">
+        <app-alert [color]="alertColor">{{alertMsg}}</app-alert>
+    </div>
+    <h1 class="text-lg text-blue1">Are you sure you want to delete this project!</h1>
+    <div class="flex flex-row ">
+        <input class="w-6 h-6 " [(ngModel)]="delete" name="delete" type="checkbox">
+        <label class="ml-4 text-dark1">Please confirm if you want to proceed!</label>
+    </div>
+    
+    <div class="flex flex-row m-auto items-center justify-center gap-x-4">
+      <button [disabled]="!delete" (click)="deleteProject()"
+        class="mt-4 px-4 py-2 text-white tracking-wide rounded bg-red-600 hover:bg-red-400 disabled:opacity-50 disabled:bg-red-500"
+      >
+        Delete
+      </button>
+      <button (click)="_modalService.toggleModal('deleteProject')"
+        class="mt-4 px-4 py-2 text-white tracking-wide rounded bg-blue1 hover:bg-blue2 disabled:opacity-50 disabled:bg-blue1"
+      >
+        Cancle
+      </button>
+    </div>
+  </div>
+</app-modal>

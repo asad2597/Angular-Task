@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import IProject from 'src/app/Models/project.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -7,67 +7,95 @@ import { ProjectService } from 'src/app/services/project.service';
 @Component({
   selector: 'app-edit-project',
   templateUrl: './edit-project.component.html',
-  styleUrls: ['./edit-project.component.scss']
+  styleUrls: ['./edit-project.component.scss'],
 })
-export class EditProjectComponent {
-
-  //@Input() selectedProject: IProject | null = null;
- @ViewChild('editForm') editForm: NgForm;
-  @Input() project: IProject = {
-    title: '',
-    framework: '',
-    budget: 0,
-    duration: 0,
-    details: '',
-    status: false,
-    uid: ''
-  };
-  insubmission = true;
-
-  constructor(
-    public projectService: ProjectService,
-    public modal: ModalService
-    ){
-      
-    }
-
-  ngOnInit(){
-   
-    this.modal.registerModal('editProject');
-    
-    
-    
-  }
+export class EditProjectComponent implements OnDestroy, OnInit {
   
-  ngOnChanges(){
-    if(!this.project){
-      return
+  project = {} as IProject;
+  formTitle = '';
+  showAlert = false;
+  alertMsg = 'Please wait! Updating project...';
+  alertColor = 'text-blue1';
+  insubmission = true;
+  // Constructor.....
+  constructor(
+    public _projectService: ProjectService,
+    public modal: ModalService
+  ) {}
+
+  //FormControls.....
+  title = new FormControl('', {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+  framework = new FormControl('', {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+  budget = new FormControl(0, {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+  duration = new FormControl(0, {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+  details = new FormControl('', {
+    validators: [Validators.required],
+    nonNullable: true,
+  });
+  status = new FormControl(false, { nonNullable: true });
+  uid = new FormControl('', { nonNullable: true });
+  docID = new FormControl('', { nonNullable: true });
+  //FormGroup......
+  editForm = new FormGroup({
+    title: this.title,
+    framework: this.framework,
+    budget: this.budget,
+    duration: this.duration,
+    details: this.details,
+    status: this.status,
+    uid: this.uid,
+    docID: this.docID
+  });
+
+  ngOnInit() {
+    this.modal.registerModal('editProject');
+
+    this._projectService.getSelectedproject.subscribe((project) => {
+      this.editForm.patchValue(project);
+      this.formTitle = project.title;
+    });
+  }
+
+ async updateProject(){
+    this.showAlert = true;
+    this.insubmission  = false;
+    try{
+      
+     await this._projectService.update(this.docID.value, this.editForm.value as IProject);
+      setTimeout(()=>{
+        
+        this.showAlert = false;
+      }, 5000);
+
+    }catch(e){
+      this.alertMsg = 'Somthing went wrong! Please try again later!';
+      this.alertColor = 'text-green-600';
+      this.insubmission = true;
+      setTimeout(()=>{
+        this.showAlert = false;
+      }, 5000);
     }
-   // console.log("OnChanges: " + this.editForm);
-      console.log(this.project);
-      if(this.project.title!==''){
-        setTimeout(()=>{
-          this.editForm.control.patchValue({title: JSON.stringify(this.project.title)})
-          console.log("Title: " + typeof(this.project.title))
-        });
-      }
-      
-      
-    
+    this.alertMsg = 'Project updated successfuly!';
+    this.alertColor = 'text-green-600';
+    this.insubmission = true;  
   }
 
-  setValue(editForm: NgForm){
-    let obj = {
-      title: "this.project.title",
-      framework: "this.project.framework",
-      details: "this.project.details"
-    };
-    editForm.control.patchValue(obj);
-    console.log("setValue Called: " + obj)
-  }
-  OnDestroy(){
 
+
+
+  ngOnDestroy() {
     this.modal.unregister('editProject');
   }
-
 }

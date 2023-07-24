@@ -9,4 +9,5 @@ export class TabComponent {
 
   @Input() tabTitle =  '';
   @Input() active = true;
+
 }

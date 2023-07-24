@@ -24,6 +24,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { FooterComponent } from './footer/footer.component';
 import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,10 +34,7 @@ import { SharedModule } from './shared/shared.module';
     AboutComponent,
     ContactComponent,
     ProjectsComponent,
-    FooterComponent,
-    
-    
-  
+    FooterComponent
   ],
   imports: [
     //AngularFireModule,

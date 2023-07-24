@@ -6,4 +6,5 @@ export default interface IProject{
     details: string,
     status: boolean,
     uid: string
+    docID?: string
 }
