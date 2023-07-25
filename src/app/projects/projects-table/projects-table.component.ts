@@ -45,12 +45,10 @@ ngOnInit(){
 toggleAction(project: IProject){
   this.selectedProject = project;
   this._projectService.setSelectedProject(project);
-  console.log("value has been set: ___________" );
   this.showAction = !this.showAction;
 }
 closeAction(){
   this.showAction = false;
-  console.log("closeAction called......")
 }
 
 openEditModal(){

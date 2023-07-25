@@ -21,5 +21,8 @@ export class TopNavComponent{
       this.modal.toggleModal('auth');
     }
     
+    logout(){
+      this.auth.logout();
+    }
   
 }

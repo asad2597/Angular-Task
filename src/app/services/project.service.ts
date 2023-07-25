@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Firestore, deleteDoc, getFirestore, where } from '@angular/fire/firestore';
-import { FirebaseApp } from '@angular/fire/app';
-import { addDoc,doc,updateDoc, getDocs, collection,query } from 'firebase/firestore';
+import { Firestore, deleteDoc, where, addDoc,doc,updateDoc, getDocs, collection,query } 
+                                                        from '@angular/fire/firestore';
+
 import IProject from 'src/app/Models/project.model';
 import { AuthService } from './auth.service';
 import { BehaviorSubject } from 'rxjs';
@@ -10,21 +10,19 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectService {
-  private db: Firestore;
+  //private db: Firestore;
   private projects: IProject[] = [];
   obj = {} as IProject
   private project = new BehaviorSubject<IProject>(this.obj);
   getSelectedproject = this.project.asObservable();
 
   //...........Custroctor.........
-  constructor( private afApp: FirebaseApp, public auth: AuthService){
-    
-    this.db = getFirestore(afApp);
-    this.projects = [];
+  constructor( private db: Firestore, public auth: AuthService){
+
     //getting all projects......
     this.getProjectsList().then(qdoc=>{
       
-                qdoc.forEach(doc=>{
+                qdoc.forEach((doc)=>{
                   this.projects.push({
                     docID: doc.id,
                     ...doc.data() as IProject

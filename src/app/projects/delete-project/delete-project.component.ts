@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import IProject from 'src/app/Models/project.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ProjectService } from 'src/app/services/project.service';
 
@@ -10,10 +12,12 @@ import { ProjectService } from 'src/app/services/project.service';
 export class DeleteProjectComponent implements OnInit, OnDestroy{
   delete = false;
   id : string;
+  projectTitle = '';
   showAlert = false;
   alertMsg = 'Please wait! Deleting project...';
   alertColor = 'text-blue1';
   insubmission = true;
+  subscription: Subscription;
 
   constructor(public _modalService: ModalService, public _projectService: ProjectService){
 
@@ -21,8 +25,9 @@ export class DeleteProjectComponent implements OnInit, OnDestroy{
 
   ngOnInit(){
     this._modalService.registerModal('deleteProject');
-    this._projectService.getSelectedproject.subscribe((project) => {
+    this.subscription = this._projectService.getSelectedproject.subscribe((project) => {
         this.id = project.docID!;
+        this.projectTitle = project.title;
     });
 
   }
@@ -54,6 +59,7 @@ export class DeleteProjectComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy(){
     this._modalService.unregister('deleteProject');
+    this.subscription.unsubscribe();
   }
 
 }

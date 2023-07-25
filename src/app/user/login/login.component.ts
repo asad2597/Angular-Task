@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { getAuth } from '@firebase/auth';
+import { AuthService } from 'src/app/services/auth.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-login',
@@ -13,23 +15,24 @@ export class LoginComponent {
     password: ''
   }
 
-  auth: Auth;
+  
   insubmission = true;
 
-  constructor(){
-    this.auth = getAuth();
+  constructor(private auth: AuthService, private modal: ModalService){
+    
   }
-  async loginUser(){
-
+ loginUser($event: Event){
+    $event.preventDefault();
+    this.insubmission = false;
     try{
-      await signInWithEmailAndPassword(
-        this.auth, 
-        this.credentials.email,
-        this.credentials.password
-        )
-        this.insubmission = false;
+      this.auth.logIn(this.credentials.email, this.credentials.password);
+      setTimeout(()=>{
+        this.modal.toggleModal('auth');  
+      },500);
+      
     }catch(e){
-
+      this.insubmission = true;
+      console.log("Error from LoginUser....");
     }
     
   }

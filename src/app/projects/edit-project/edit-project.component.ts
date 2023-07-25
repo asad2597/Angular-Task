@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import IProject from 'src/app/Models/project.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -17,6 +18,7 @@ export class EditProjectComponent implements OnDestroy, OnInit {
   alertMsg = 'Please wait! Updating project...';
   alertColor = 'text-blue1';
   insubmission = true;
+  subscription: Subscription;
   // Constructor.....
   constructor(
     public _projectService: ProjectService,
@@ -62,7 +64,7 @@ export class EditProjectComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.modal.registerModal('editProject');
 
-    this._projectService.getSelectedproject.subscribe((project) => {
+    this.subscription =  this._projectService.getSelectedproject.subscribe((project) => {
       this.editForm.patchValue(project);
       this.formTitle = project.title;
     });
@@ -74,10 +76,10 @@ export class EditProjectComponent implements OnDestroy, OnInit {
     try{
       
      await this._projectService.update(this.docID.value, this.editForm.value as IProject);
-      setTimeout(()=>{
+       setTimeout(()=>{
         
         this.showAlert = false;
-      }, 5000);
+      },2000);
 
     }catch(e){
       this.alertMsg = 'Somthing went wrong! Please try again later!';
@@ -85,7 +87,7 @@ export class EditProjectComponent implements OnDestroy, OnInit {
       this.insubmission = true;
       setTimeout(()=>{
         this.showAlert = false;
-      }, 5000);
+      },2000);
     }
     this.alertMsg = 'Project updated successfuly!';
     this.alertColor = 'text-green-600';
@@ -97,5 +99,6 @@ export class EditProjectComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.modal.unregister('editProject');
+    this.subscription.unsubscribe();
   }
 }

@@ -1,38 +1,31 @@
 import { Injectable } from '@angular/core';
 import IUser from '../Models/user.model';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  Auth,
-  onAuthStateChanged,
-  signOut,
-} from '@angular/fire/auth';
-import { Firestore, getFirestore } from '@angular/fire/firestore';
-import { doc, setDoc } from 'firebase/firestore';
-import { FirebaseApp } from '@angular/fire/app';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, Auth, onAuthStateChanged, signOut} from '@angular/fire/auth';
+import {Firestore, doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { filter, map, of, switchMap } from 'rxjs';
+import { FirebaseApp, getApp } from '@angular/fire/app';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  private auth: Auth;
-  private db: Firestore;
   private uid = '';
   private redirect = false;
   isAuthenticated = false;
   
 
   //constructor....
-  constructor(private afApp: FirebaseApp, private router: Router, private route: ActivatedRoute) {
-    this.auth = getAuth(afApp);
-    this.db = getFirestore(afApp);
-
+    constructor(private db: Firestore, 
+                private auth: Auth, 
+                private router: Router,
+                private route: ActivatedRoute
+    ){
+  
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.isAuthenticated = true;
-        this.uid = user.uid;
+        this.uid = user.uid!;
       } else {
         this.isAuthenticated = false;
       }
@@ -61,10 +54,16 @@ export class AuthService {
     });
     return userCred;
   }
+//SignInWithEmailandPassword.....
+  async logIn(email: string, password: string){
+    await signInWithEmailAndPassword(
+      this.auth, 
+      email,
+      password
+      )
+      await this.router.navigateByUrl('/createProjects');
+    }
 
-  getUid(): string {
-    return this.uid;
-  }
 
   //logout user....
   public async logout() {
@@ -74,5 +73,9 @@ export class AuthService {
       await this.router.navigateByUrl('/');
     }
     
+  }
+//to get userid.....
+  getUid(): string {
+    return this.uid;
   }
 }

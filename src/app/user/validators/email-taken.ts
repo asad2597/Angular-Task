@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Auth, getAuth , fetchSignInMethodsForEmail } from '@angular/fire/auth';
+import { Auth, fetchSignInMethodsForEmail } from '@angular/fire/auth';
 import { AbstractControl, AsyncValidator, ValidationErrors} from '@angular/forms';
-import { FirebaseApp } from '@angular/fire/app';
+
 
 
 @Injectable({
@@ -9,14 +9,13 @@ import { FirebaseApp } from '@angular/fire/app';
 })
 export class EmailTaken implements AsyncValidator {
   
-  private auth: Auth;
-  constructor(private afApp: FirebaseApp){
-    this.auth = getAuth(this.afApp);
+  constructor(private auth: Auth){
+    
   }
 
   validate = (control: AbstractControl): Promise<ValidationErrors | null> => {
     return fetchSignInMethodsForEmail(this.auth , control.value).then(
-      (response) => (response.length ? { emailTaken: true } : null)
+      (response: string | any[]) => (response.length ? { emailTaken: true } : null)
     );
   };
 }

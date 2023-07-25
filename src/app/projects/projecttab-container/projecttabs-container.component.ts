@@ -27,7 +27,6 @@ export class ProjecttabsContainerComponent {
   selectTab(tab: TabComponent){
     this.tabs?.forEach(tab=>{
      tab.active = false;
-     console.log(tab.tabTitle);
     })
 
     tab.active = true;

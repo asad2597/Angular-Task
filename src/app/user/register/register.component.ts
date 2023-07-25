@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegisterValidators } from '../validators/register-validators';
 import { EmailTaken } from '../validators/email-taken';
